@@ -17,6 +17,8 @@ analyzer:
     unused_label: error
     unused_result: error
     unused_shown_name: error
+    always_specify_types: ignore
+    sort_constructors_first: ignore
   exclude:
     - "bin/cache/**"
     - "**/*.g.dart"
@@ -60,7 +62,6 @@ linter:
     - no_default_cases
     - no_logic_in_create_state
     - missing_whitespace_between_adjacent_strings
-    - sort_pub_dependencies
     - prefer_final_in_for_each
     - prefer_final_locals
     - prefer_foreach
