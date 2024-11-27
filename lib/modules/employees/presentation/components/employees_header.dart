@@ -32,7 +32,11 @@ class EmployeesHeader extends StatelessWidget {
             fontSize: 18,
           ),
         ),
-        trailing: Icon(Icons.more_vert, color: Colors.black),
+        trailing: Icon(
+          Icons.circle,
+          color: Colors.black,
+          size: 16,
+        ),
       ),
     );
   }

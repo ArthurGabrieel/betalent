@@ -10,6 +10,8 @@ part 'employee_state.dart';
 class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
   final GetAllEmployees getAllEmployees;
 
+  List<Employee> allEmployees = [];
+
   EmployeeBloc({required this.getAllEmployees}) : super(EmployeeInitial()) {
     on<FetchEmployeesEvent>((event, emit) async {
       emit(EmployeeLoading());
@@ -17,8 +19,25 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
 
       result.fold(
         (failure) => emit(EmployeeError(message: failure.message)),
-        (employees) => emit(EmployeeLoaded(employees: employees)),
+        (employees) {
+          allEmployees = employees;
+          emit(EmployeeLoaded(employees: employees));
+        },
       );
+    });
+
+    on<FilterEmployeesEvent>((event, emit) async {
+      if (event.query.isEmpty) {
+        emit(EmployeeLoaded(employees: allEmployees));
+      } else {
+        final filteredEmployees = allEmployees.where((employee) {
+          return employee.name.toLowerCase().contains(event.query) ||
+              employee.job.toLowerCase().contains(event.query) ||
+              employee.phone.contains(event.query);
+        }).toList();
+
+        emit(EmployeeLoaded(employees: filteredEmployees));
+      }
     });
   }
 }
