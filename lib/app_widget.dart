@@ -1,3 +1,4 @@
+import 'package:betalent/core/config/style/theme.dart';
 import 'package:betalent/core/service_locator.dart';
 import 'package:betalent/modules/employees/presentation/bloc/employee_bloc.dart';
 import 'package:betalent/modules/employees/presentation/pages/employees_page.dart';
@@ -12,9 +13,7 @@ class AppWidget extends StatelessWidget {
     return BlocProvider(
       create: (_) => sl<EmployeeBloc>(),
       child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: AppTheme.light,
         home: const EmployeesPage(),
       ),
     );

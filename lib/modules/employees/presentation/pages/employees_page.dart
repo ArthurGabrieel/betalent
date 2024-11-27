@@ -14,13 +14,24 @@ class EmployeesPage extends StatefulWidget {
 }
 
 class _EmployeesPageState extends State<EmployeesPage> {
+  late TextEditingController _searchController;
+  String _searchText = '';
+
   @override
   void initState() {
     super.initState();
 
+    _searchController = TextEditingController();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<EmployeeBloc>().add(FetchEmployeesEvent());
     });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -32,7 +43,7 @@ class _EmployeesPageState extends State<EmployeesPage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Wrap(
-            runSpacing: 16,
+            runSpacing: 20,
             children: [
               const Text(
                 'Funcionários',
@@ -42,15 +53,15 @@ class _EmployeesPageState extends State<EmployeesPage> {
                 ),
               ),
               TextField(
-                decoration: InputDecoration(
+                controller: _searchController,
+                onChanged: (value) {
+                  setState(() {
+                    _searchText = value.toLowerCase();
+                  });
+                },
+                decoration: const InputDecoration(
                   hintText: 'Pesquisar',
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    borderSide: BorderSide.none,
-                  ),
+                  prefixIcon: Icon(Icons.search),
                 ),
               ),
               Column(
@@ -61,12 +72,28 @@ class _EmployeesPageState extends State<EmployeesPage> {
                       return state.when(
                         loading: () => const ListEmployeesShimmer(),
                         loaded: (employees) {
+                          final filteredEmployees = employees.where((employee) {
+                            return employee.name
+                                    .toLowerCase()
+                                    .contains(_searchText) ||
+                                employee.job
+                                    .toLowerCase()
+                                    .contains(_searchText) ||
+                                employee.phone.contains(_searchText);
+                          }).toList();
+
+                          if (filteredEmployees.isEmpty) {
+                            return const Center(
+                              child: Text('Nenhum funcionário encontrado.'),
+                            );
+                          }
+
                           return ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: employees.length,
+                            itemCount: filteredEmployees.length,
                             itemBuilder: (context, index) {
-                              final employee = employees[index];
+                              final employee = filteredEmployees[index];
                               return EmployeeTile(employee: employee);
                             },
                           );

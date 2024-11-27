@@ -75,7 +75,6 @@ class _EmployeeTileState extends State<EmployeeTile>
                           ? Icons.keyboard_arrow_up
                           : Icons.keyboard_arrow_down,
                       size: 32,
-                      color: const Color(0xFF0500FF),
                     ),
                   ],
                 ),
