@@ -1,64 +1,95 @@
-# Teste Técnico Mobile BeTalent
+# **BeTalent - Teste Técnico Mobile**
 
-Este é um repositório para Testes Técnicos em Mobile da Be. Ele é destinado a pessoas que participam de nossos processos seletivos. 
+Uma aplicação Flutter desenvolvida como parte do processo seletivo da **BeTalent**. O objetivo do projeto é exibir uma tabela de dados de funcionários, com funcionalidades de busca, formatação de números e datas, e um layout interativo.
 
-Se você chegou até aqui por meio de um formulário de Teste Técnico, siga em frente. Caso contrário, acompanhe a BeTalent no [Linkedin](https://www.linkedin.com/company/betalenttech), [Instagram](https://www.instagram.com/betalent.tech/), [Facebook](https://web.facebook.com/bemobile.tech) ou na nossa newsletter [BeTalent Academy](https://beacademy.substack.com/). Divulgamos novos processos seletivos por lá.
+## **Estrutura do Projeto**
 
-## Desafio
+O projeto segue os princípios da **Clean Architecture**, dividindo o código em camadas bem definidas:
 
-O Teste Técnico Mobile BeTalent consiste em construir a visualização de uma tabela com dados que virão de uma API simulada.
+- **Presentation**: Componentes de UI, widgets e gerenciamento de estado (Bloc).
+- **Domain**: Lógica de negócios, casos de uso e entidades.
+- **Data**: Fontes de dados, repositórios e modelos.
 
-### Mockup
+---
 
-Este é o [projeto em Figma](https://www.figma.com/design/Lpdera6rS8SztMUAwzkpN0/Teste-T%C3%A9cnico-Mobile-BeTalent?node-id=1-4&node-type=canvas&t=NI5lQZvrO1hsQCqz-0) para você se orientar. Nele, você encontrará o guia de estilos e o design da tela a ser construída.
+## **Funcionalidades**
 
-### Requisitos Gerais
+- **Tabela de Funcionários**: Exibição de dados de funcionários, incluindo:
+  - Imagem do funcionário;
+  - Nome;
+  - Cargo;
+  - Data de admissão (formatada);
+  - Telefone (formatado).
+- **Busca Dinâmica**: Filtre funcionários por nome, cargo ou telefone.
+- **Formatação de Dados**:
+  - Números de telefone no formato padrão nacional;
+  - Datas exibidas no formato `dd/MM/yyyy`.
+- **UI Interativa**: Interface responsiva e amigável com animações suaves.
+- **Tratamento de Erros**: Mensagens amigáveis para problemas de rede ou entradas inválidas.
 
-Deve-se utilizar React Native ou Flutter para a construção da aplicação.
+---
 
-É permitido utilizar libs externas, mas recomenda-se que seja o mínimo possível.
+## **Pré-requisitos**
 
-A tabela deve conter as seguintes colunas:
+Para rodar este projeto, você precisará ter instalado:
 
-- imagem (thumb do/a usuário/a);
-- nome;
-- cargo
-- data de admissão;
-- telefone.
+- [Flutter](https://flutter.dev/) versão 3.24.5 ou superior;
+- [Dart](https://dart.dev/) versão 3.5.4 ou superior;
+- [json-server](https://github.com/typicode/json-server) para simular a API.
 
-Também deve ser possível realizar pesquisa na tabela por meio de um input. O input de pesquisa deve permitir filtrar dados por cargo, nome e telefone.
+---
 
-Datas e telefones devem ser formatadas no front-end e não na API.
+## **Instruções para Rodar a Aplicação**
 
-Tenha instaladas em sua máquina as ferramentas [Git](https://git-scm.com/), [Node.js](https://nodejs.org/en/) e [Yarn](https://yarnpkg.com/), e [React Native](https://reactnative.dev/) ou [Dart](https://dart.dev/) e [Flutter](https://flutter.dev/), para poder trabalhar no projeto.
+1. **Clone o repositório**:
 
-### Acesso aos dados da API simulada
+    ```bash
+    git clone https://github.com/ArthurGabrieel/betalent.git
+    ```
 
-Para ter acesso aos dados que alimentarão o projeto, faça o seguinte:
+2. **Navegue para o diretório do projeto**:
 
-1. caso você não tenha, instale o pacote [json-server](https://github.com/typicode/json-server);
-2. clone este repositório do GitHub em sua máquina: [https://github.com/BeMobile/desafio-mobile](https://github.com/BeMobile/desafio-mobile);
-3. entre na pasta do projeto, em sua máquina, e, por meio da linha de comando, execute o comando `json-server --watch db.json`, para consumir a API simulada;
-4. inicie a estrutura e o desenvolvimento do projeto.
+    ```bash
+    cd seuprojeto
+    ```
 
-É necessário deixar o json-server rodando no terminal para que os dados sejam visualizados no projeto.
+3. **Instale as dependências do Flutter**:
 
-Caso você tenha problemas com o json-server, tente rodá-lo com `npx json-server db.json` ou 
-com `yarn json-server <path>/db.json`, em que `<path>` é o caminho completo até o diretório em que o arquivo db.json está localizado. Se mesmo assim não funcionar, busque ajuda na web.
+    ```bash
+    flutter pub get
+    ```
 
-### Critérios de Avaliação
+4. **Instale as dependências do JavaScript**:
+      ```bash
+      npm install
+      ```
 
-Em ordem de relevância, avaliaremos:
+5. **Inicie o servidor JSON**:
+      ```bash
+      npx json-server --watch database.json
+      ```
 
-1. lógica de programação;
-2. organização (do código e dos arquivos);
-3. proficiência no uso de React Native e/ou Flutter;
-4. README, que deve conter, pelo menos, as seguintes informações: sobre o projeto, pré-requisitos e instruções para rodar a aplicação.
+    A API estará disponível em [http://localhost:3000](http://localhost:3000).
 
-É um diferencial na avaliação o uso de TypeScript.
+6. **Execute o aplicativo**:
 
-### Envio da Solução
+    ```bash
+    flutter run
+    ```
 
-O projeto deverá ser hospedado em um repositório no seu GitHub. O link do repositório deverá ser fornecido por meio do formulário de Teste Técnico encaminhado ao seu e-mail. Não serão aceitos links de projetos enviados por outros meios.
+    Certifique-se de que um dispositivo ou emulador está conectado.
 
-Demais instruções e regras serão instruídas nos formulários e nas comunicações do processo seletivo do qual você está participando.
+---
+
+## **Tecnologias Utilizadas**
+
+- **Flutter**: Framework principal para desenvolvimento mobile.
+- **Dart**: Linguagem de programação utilizada no Flutter.
+- **Bloc**: Gerenciamento de estado seguindo padrões reativos.
+- **json-server**: Simulação da API.
+
+---
+
+## **Licença**
+
+Este projeto foi desenvolvido como parte de um teste técnico e é de uso exclusivo para avaliação. Entre em contato com o autor para mais informações.
