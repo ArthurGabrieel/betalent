@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:betalent/core/api/endpoints.dart';
 import 'package:betalent/core/api/http_client.dart';
 import 'package:betalent/core/errors/exceptions.dart';
@@ -19,8 +17,11 @@ class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
     final response = await client.get(Endpoints.getAllEmployees);
 
     if (response.statusCode == 200) {
-      final List<dynamic> jsonResponse = json.decode(response.data);
-      return jsonResponse.map((json) => EmployeeModel.fromJson(json)).toList();
+      final List<dynamic> jsonResponse =
+          response.data; // Confirme o tipo de response.data
+      return jsonResponse
+          .map((json) => EmployeeModel.fromJson(json as Map<String, dynamic>))
+          .toList(); // Converte para uma lista de EmployeeModel
     } else {
       throw ServerException();
     }

@@ -1,6 +1,6 @@
 class Endpoints {
-  Endpoints._();
+  const Endpoints._();
 
-  static const String baseUrl = 'https://api.themoviedb.org/3';
+  static const String baseUrl = 'http://localhost:3000';
   static const String getAllEmployees = '/employees';
 }
